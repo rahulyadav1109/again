@@ -10,11 +10,18 @@ function onSubmit(e)
 {
     e.preventDefault();
 
-    localStorage.setItem('name',nameInput.value);
-    localStorage.setItem('email',emailInput.value);
-    console.log(emailInput.value)
+    const name=e.target.name.value;
+    const email=e.target.email.value;
+    
+    let obj={
+        name,email
+    }
 
+    console.log(obj)
+    localStorage.setItem(obj.email,JSON.stringify(obj))
+
+    let x=document.getElementById('users');
+    let y=document.createElement('li');
+    y.textContent=obj.name+ " " + obj.email +' ';
+    x.appendChild(y);
 }
-
-var a = localStorage.getItem('name');
-console.log(typeof(a));
