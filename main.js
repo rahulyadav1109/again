@@ -1,46 +1,67 @@
-// var test=document.getElementsByTagName("li");
+var form = document.getElementById('addForm');
+var itemList = document.getElementById('items');
+var filter = document.getElementById('filter');
 
-// // console.log(test[1]);
-// // test[1].style.backgroundColor='green'
-// // for(let i=0;i<test.length;i++)
-// // {
-// //     test[i].style.fontWeight='bold';
-// // }
+// Form submit event
+form.addEventListener('submit', addItem);
+// Delete event
+itemList.addEventListener('click', removeItem);
+// Filter event
+filter.addEventListener('keyup', filterItems);
 
-// console.log(test[4].style.fontWeight='bold')
+// Add item
+function addItem(e){
+  e.preventDefault();
 
-// let variable=document.querySelector('li:nth-child(1)');
-// variable.style.backgroundColor='green'
+  // Get input value
+  var newItem = document.getElementById('item').value;
 
-// let visible=document.getElementsByTagName('li')[2];
-// visible.style.display='none';
+  // Create new li element
+  var li = document.createElement('li');
+  // Add class
+  li.className = 'list-group-item';
+  // Add text node with input value
+  li.appendChild(document.createTextNode(newItem));
 
-// let change=document.querySelectorAll('li:nth-child(2)')[0];
-// change.style.color='green';
+  // Create del button element
+  var deleteBtn = document.createElement('button');
 
-// let odd=document.querySelectorAll('li:nth-child(odd)');
+  // Add classes to del button
+  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
 
-// for(let i=0;i<odd.length;i++)
-// {
-//     odd[i].style.backgroundColor='green';
-// }
+  // Append text node
+  deleteBtn.appendChild(document.createTextNode('X'));
 
-var newdiv=document.createElement('div');
-newdiv.className='hello';
-newdiv.id='hello1';
+  // Append button to li
+  li.appendChild(deleteBtn);
 
-newdiv.setAttribute('title','Hello Div');
+  // Append li to list
+  itemList.appendChild(li);
+}
 
-var newdivtext=document.createTextNode('Hello');
+// Remove item
+function removeItem(e){
+  if(e.target.classList.contains('delete')){
+    if(confirm('Are You Sure?')){
+      var li = e.target.parentElement;
+      itemList.removeChild(li);
+    }
+  }
+}
 
-newdiv.appendChild(newdivtext);
-
-var container=document.querySelector('header .container');
-var h1=document.querySelector('header h1');
-
-console.log(newdiv)
-container.insertBefore(newdiv,h1);
-
-var parentnode= document.getElementById('items');
-console.log(parentnode.innerHTML);
-parentnode.innerHTML='<li>Hello World</li>' + parentnode.innerHTML;
+// Filter Items
+function filterItems(e){
+  // convert text to lowercase
+  var text = e.target.value.toLowerCase();
+  // Get lis
+  var items = itemList.getElementsByTagName('li');
+  // Convert to an array
+  Array.from(items).forEach(function(item){
+    var itemName = item.firstChild.textContent;
+    if(itemName.toLowerCase().indexOf(text) != -1){
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
