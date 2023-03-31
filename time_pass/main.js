@@ -23,5 +23,17 @@ function onSubmit(e)
     let x=document.getElementById('users');
     let y=document.createElement('li');
     y.textContent=obj.name+ " " + obj.email +' ';
+
+    var delbtn=document.createElement('input');
+    delbtn.type='button';
+    delbtn.value='Delete';
+    delbtn.onclick=() => {
+        localStorage.removeItem(obj.email)
+        x.removeChild(y);
+    }
+    
+    y.appendChild(delbtn);
     x.appendChild(y);
+    
 }
+
