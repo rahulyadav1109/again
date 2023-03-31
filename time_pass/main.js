@@ -31,8 +31,20 @@ function onSubmit(e)
         localStorage.removeItem(obj.email)
         x.removeChild(y);
     }
+    const editbtn=document.createElement('input');
+    editbtn.type='button';
+    editbtn.value='Edit';
+
+    editbtn.onclick=() => {
+        localStorage.removeItem(obj.email);
+        x.removeChild(y);
+        document.getElementById('name').value=obj.name;
+        document.getElementById('email').value=obj.email;
+
+    }
     
     y.appendChild(delbtn);
+    y.appendChild(editbtn);
     x.appendChild(y);
     
 }
