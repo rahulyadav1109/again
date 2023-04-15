@@ -1,4 +1,10 @@
 let form=document.getElementById('my-form');
+let ul=document.createElement('ul');
+ul.id="listofusers";
+console.log(ul);
+form.parentNode.insertBefore(ul,form.nextSibling);
+
+
 
 form.addEventListener('submit', onClick)
 
@@ -14,5 +20,21 @@ function onClick(e){
     }
     let my_obj_serial=JSON.stringify(my_obj);
     localStorage.setItem(name1,my_obj_serial);
+
+    let pe1=document.getElementById('listofusers');
+    let childele=document.createElement('li');
+    childele.textContent=name1+' '+email1;
+    pe1.appendChild(childele);
+
+    //add delete buttin
+    let button=document.createElement('button');
+    button.innerText='delete';
+
+    childele.appendChild(button);
+
+    button.addEventListener('click',function(){
+        childele.remove();
+        localStorage.removeItem(name1);
+    })
 
 }
